@@ -62,5 +62,6 @@ foreach ($modules as $module => $moduleFiles ){
 //Tag and push//
 $tag = getGutenbergTag();
 exec( "git fetch --tags && git tag -d $tag" );
-exec( "git add . && git commit -m \"$tag\" && git tag $tag && git push && git push --tags");
+exec( "git add . && git commit -m \"$tag\" && git tag $tag");
+//exec( 'git push origin master && git push --tags');
 
