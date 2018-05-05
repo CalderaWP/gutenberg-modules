@@ -21,4 +21,8 @@ NOTE: The version of Gutenberg to pull is hardcoded in app.php for now.
    `cd gutenberg modules`
 * Run build command
     `composer build`
-   
+
+### Publish To NPM
+You must be authenticated as Josh for this to work.
+
+* `composer publish`

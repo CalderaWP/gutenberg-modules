@@ -31,7 +31,8 @@
         "sniffs" : "phpcs sniffs",
         "fixes" : "phpcbf src/ && phpcbf tests/",
         "hi": "php ./app.php gbm:hi",
-        "build": "php ./app.php gbm:build false"
+        "build": "php ./app.php gbm:build 0",
+        "publish": "php ./app.php gbm:build 1"
     },
     "autoload-dev": {
         "psr-4": {

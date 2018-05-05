@@ -50,7 +50,8 @@ class Build extends Command
 		$output->writeln('Files copied');
 
 
-		if( $input->getArgument('publish' ) ){
+		if( true == (bool) $input->getArgument('publish' ) ){
+			var_dump((bool)$input->getArgument('publish' ));exit;
 			//Publish
 			$output->writeln(
 				(new Publish() )->getOutput()
