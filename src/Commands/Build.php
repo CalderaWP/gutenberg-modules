@@ -15,35 +15,34 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Build extends Command
 {
 
-	private $tag;
 	use HasApp;
+
+	/** @inheritdoc */
 	protected function configure()
 	{
 		$this
 			->setDescription('Builds dist directory' );
 	}
 
+	/** @inheritdoc */
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
+		//Install and build Gutenberg
 		(new MaybeInstallGutenberg() )->run();
-		$this->setUpTags();
+
+		//Delete tag in this repo, if it exists already
+		if( (new TagAlreadyExists())->getOutput() ){
+			(new DeleteTag())->run();
+		}
+
+		//Copy files
 		$this
 			->getApp()
 			->copyFiles();
 		$output->writeln('Files copied');
 
+		//Publish
 		$output->writeln( (new Publish() )->getOutput() );
-
-
-	}
-
-
-	private function setUpTags()
-	{
-		if( (new TagAlreadyExists())->getOutput() ){
-			(new DeleteTag())->run();
-		}
-
 
 	}
 
