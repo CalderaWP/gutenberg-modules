@@ -1,5 +1,8 @@
 <?php
 
+$path = dirname(__FILE__) .'/bin/tag-exists.sh';
+exec( "bash $path" );
+exit;
 /**
  * @return string
  */
@@ -62,6 +65,6 @@ foreach ($modules as $module => $moduleFiles ){
 //Tag and push//
 $tag = getGutenbergTag();
 exec( "git fetch --tags && git tag -d $tag" );
-exec( "git add . && git commit -m \"$tag\" && git tag $tag");
+//exec( "git add . && git commit -m \"$tag\" && git tag $tag");
 //exec( 'git push origin master && git push --tags');
 
