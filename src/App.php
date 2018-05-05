@@ -5,8 +5,6 @@ namespace calderawp\gutenbergModules;
 
 use calderawp\gutenbergModules\Commands\Build;
 use calderawp\gutenbergModules\Commands\HiRoy;
-use calderawp\gutenbergModules\Commands\SetupTags;
-use calderawp\gutenbergModules\Processes\FindGutenbergTag;
 use Symfony\Component\Console\Application;
 
 
@@ -22,7 +20,7 @@ class App
 	/**
 	 * @var string
 	 */
-	private $gutenTag;
+	private $gutenbergVersion;
 
 
 	const APP_NAME = 'gbm';
@@ -36,18 +34,22 @@ class App
 	 */
 	private $rootPath;
 
-	public function __construct(string $rootPath)
+
+	public function __construct(string $rootPath, $gutenbergVersion )
 	{
+		$this->gutenbergVersion = $gutenbergVersion;
 		$this->rootPath = $rootPath;
+		$stdSet = [
+			'index.js',
+			'style.css',
+			'style-rtl.css'
+		];
 		$this->modulesMap = [
 			'data' => [
 				'index.js',
 			],
-			'components' => [
-				'index.js',
-				'style.css',
-				'style-rtl.css'
-			]
+			'components' => $stdSet,
+			'blocks' => $stdSet,
 		];
 	}
 
@@ -85,14 +87,7 @@ class App
 
 	public function getGutenbergTag(): string
 	{
-		if (!$this->gutenTag) {
-			$this->gutenTag =
-				(new FindGutenbergTag())
-					->getOutput();
-		}
-
-		//trim() is essential for build command
-		return trim($this->gutenTag);
+		return trim($this->gutenbergVersion);
 
 	}
 

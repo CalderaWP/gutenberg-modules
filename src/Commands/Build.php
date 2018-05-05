@@ -6,6 +6,7 @@ namespace calderawp\gutenbergModules\Commands;
 
 use calderawp\gutenbergModules\HasApp;
 use calderawp\gutenbergModules\Processes\DeleteTag;
+use calderawp\gutenbergModules\Processes\MaybeInstallGutenberg;
 use calderawp\gutenbergModules\Processes\Publish;
 use calderawp\gutenbergModules\Processes\TagAlreadyExists;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,6 +25,7 @@ class Build extends Command
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
+		(new MaybeInstallGutenberg() )->run();
 		$this->setUpTags();
 		$this
 			->getApp()
@@ -38,12 +40,10 @@ class Build extends Command
 
 	private function setUpTags()
 	{
-		$this->tag = $this
-			->getApp()
-			->getGutenbergTag();
 		if( (new TagAlreadyExists())->getOutput() ){
 			(new DeleteTag())->run();
 		}
+
 
 	}
 

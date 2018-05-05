@@ -4,7 +4,7 @@
 namespace calderawp\gutenbergModules\Processes;
 
 
-class InstallGutenberg extends Process
+class MaybeInstallGutenberg extends Process
 {
 	/** @inheritdoc */
 	public function commandLine(): string
