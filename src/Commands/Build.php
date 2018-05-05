@@ -9,6 +9,7 @@ use calderawp\gutenbergModules\Processes\DeleteTag;
 use calderawp\gutenbergModules\Processes\MaybeInstallGutenberg;
 use calderawp\gutenbergModules\Processes\Publish;
 use calderawp\gutenbergModules\Processes\TagAlreadyExists;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -22,6 +23,13 @@ class Build extends Command
 	{
 		$this
 			->setDescription('Builds dist directory' );
+
+		$this
+			->addArgument('publish',
+				InputArgument::OPTIONAL,
+				'If true, the default, results are pushed to Github and NPM',
+				true
+			);
 	}
 
 	/** @inheritdoc */
@@ -41,8 +49,16 @@ class Build extends Command
 			->copyFiles();
 		$output->writeln('Files copied');
 
-		//Publish
-		$output->writeln( (new Publish() )->getOutput() );
+
+		if( $input->getArgument('publish' ) ){
+			//Publish
+			$output->writeln(
+				(new Publish() )->getOutput()
+			);
+		}
+
+		$output->writeln('Completed');
+
 
 	}
 

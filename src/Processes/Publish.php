@@ -9,7 +9,7 @@ use calderawp\gutenbergModules\HasApp;
 class Publish extends Process
 {
 	use HasApp;
-
+	
 	/** @inheritdoc */
 	public function commandLine(): string
 	{
