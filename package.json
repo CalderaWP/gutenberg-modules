@@ -1,0 +1,23 @@
+{
+  "name": "gutenberg-modules",
+  "version": "0.1.0",
+  "description": "Gutenberg's built CSS and JavaScript as an npm package.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "php build.php"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CalderaWP/gutenberg-modules.git"
+  },
+  "keywords": [
+    "wordpress"
+  ],
+  "author": "Josh Pollock <Josh@calderawp.com>",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/CalderaWP/gutenberg-modules/issues"
+  },
+  "homepage": "https://github.com/CalderaWP/gutenberg-modules#readme"
+}
