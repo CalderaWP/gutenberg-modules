@@ -13,12 +13,13 @@ class Publish extends Process
 	/** @inheritdoc */
 	public function commandLine(): string
 	{
+
 			$tag = gutenbergModules()->getGutenbergTag();
 			return $this->commandFromArray( [
 				'git fetch --tags',
 				'git add .',
 				"git commit -m \"$tag\" ",
-				"git tag $tag",
+				"git tag \"$tag\" ",
 				"git push origin master",
 				"git push --tags"
 			]);

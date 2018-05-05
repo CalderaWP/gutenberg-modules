@@ -91,7 +91,8 @@ class App
 					->getOutput();
 		}
 
-		return $this->gutenTag;
+		//trim() is essential for build command
+		return trim($this->gutenTag);
 
 	}
 
