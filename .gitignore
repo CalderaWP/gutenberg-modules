@@ -3,3 +3,4 @@ gutenberg
 node_modules
 .idea/
 .DS_Store
+examples/create-react-app/node_modules

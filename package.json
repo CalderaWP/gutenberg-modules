@@ -1,5 +1,5 @@
 {
-  "name": "gutenberg-modules",
+  "name": "@caldera-labs/gutenberg-modules",
   "version": "0.1.0",
   "description": "Gutenberg's built CSS and JavaScript as an npm package.",
   "main": "index.js",
@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/CalderaWP/gutenberg-modules/issues"
   },
-  "homepage": "https://github.com/CalderaWP/gutenberg-modules#readme"
+  "homepage": "https://github.com/CalderaWP/gutenberg-modules#readme",
+  "directories": {
+    "test": "tests"
+  }
 }
