@@ -10,7 +10,7 @@ class InstallGutenberg extends Process
 	public function commandLine(): string
 	{
 		if (! $this->installed()) {
-			return implode(' && ', [
+			return $this->commandFromArray( [
 				'git clone git@github.com:WordPress/gutenberg.git',
 				'cd gutenberg',
 				'npm install',

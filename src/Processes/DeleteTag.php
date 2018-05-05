@@ -16,7 +16,5 @@ class DeleteTag extends Process
 		$tagToDelete = $this->getApp()->getGutenbergTag();
 		return "cd gutenberg && git tag --delete $tagToDelete && git push --delete origin $tagToDelete";
 	}
-
-
 	
 }

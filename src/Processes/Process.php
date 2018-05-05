@@ -22,6 +22,11 @@ abstract class Process
 	 * @return string
 	 */
 	abstract protected function commandLine(): string;
+	
+	protected function commandFromArray(array $commands)
+	{
+		return implode(' && ', $commands);
+	}
 
 	/**
 	 * Get output of command
