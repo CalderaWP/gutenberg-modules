@@ -3,13 +3,12 @@
 
 namespace calderawp\gutenbergModules;
 
+use calderawp\gutenbergModules\Commands\Build;
 use calderawp\gutenbergModules\Commands\HiRoy;
-use calderawp\gutenbergModules\Processes\DeleteTag;
+use calderawp\gutenbergModules\Commands\SetupTags;
 use calderawp\gutenbergModules\Processes\FindGutenbergTag;
-use calderawp\gutenbergModules\Processes\TagAlreadyExists;
 use Symfony\Component\Console\Application;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process;
+
 
 /**
  * Class App
@@ -18,6 +17,13 @@ use Symfony\Component\Process\Process;
  */
 class App
 {
+	private $modulesMap;
+
+	/**
+	 * @var string
+	 */
+	private $gutenTag;
+
 
 	const APP_NAME = 'gbm';
 	/**
@@ -25,6 +31,34 @@ class App
 	 */
 	private $application;
 
+	/**
+	 * @var string
+	 */
+	private $rootPath;
+
+	public function __construct(string $rootPath)
+	{
+		$this->rootPath = $rootPath;
+		$this->modulesMap = [
+			'data' => [
+				'index.js',
+			],
+			'components' => [
+				'index.js',
+				'style.css',
+				'style-rtl.css'
+			]
+		];
+	}
+
+	public function modulesMap( array  $newMap = []) : array
+	{
+
+		if (! empty( $newMap )) {
+			$this->modulesMap = array_merge($this->modulesMap, $newMap);
+		}
+		return $this->modulesMap;
+	}
 	public function run()
 	{
 
@@ -38,42 +72,63 @@ class App
 			)
 		);
 
-
-		$this->setUpTags();
+		$this->application->add(
+			new Build(
+				$this->nameCommand('build')
+			)
+		);
 
 		$this->application->run();
 
 	}
 
-	/**
-	 * @var string
-	 */
-	private $gutenTag;
 
-	public function setUpTags()
+	public function getGutenbergTag(): string
 	{
-		$this->getGutenbergTag();
-		$this->prepareTag();
-	}
-
-	public function getGutenbergTag() :string
-	{
-		if ( ! $this->gutenTag ) {
+		if (!$this->gutenTag) {
 			$this->gutenTag =
 				(new FindGutenbergTag())
-				->getOutput();
+					->getOutput();
 		}
 
 		return $this->gutenTag;
 
 	}
 
-	public function prepareTag()
+	public function rootPath(string $file = ''): string
 	{
-		if( (new TagAlreadyExists())->getOutput() ){
-			(new DeleteTag())->run();
+		return empty( $file )
+		 	? $this->rootPath
+			: $this->rootPath . "/$file";
+	}
+
+	public function copyFiles($distPath = '')
+	{
+
+		$sourcePath = $this->rootPath('gutenberg' );
+		$distPath =  !empty($distPath)
+			? $distPath
+			: $this->rootPath('dist' );
+
+		foreach ($this->modulesMap as $module => $moduleFiles ){
+			foreach ( $moduleFiles as $file ){
+				$sourceFile = sprintf('%s/%s/build/%s',
+					$sourcePath,
+					$module,
+					$file
+				);
+
+
+				$distFile = $this->distFilePath($distPath, $module, $file);
+
+
+				if (!copy($sourceFile, $distFile )) {
+					throw new \Exception( sprintf('Could not copy %s to %s', $sourceFile, $distFile ) );
+				}
+			}
 		}
 	}
+
 
 	public function binPath(string $fileName = '' ) : string
 	{
@@ -88,6 +143,21 @@ class App
 	protected function nameCommand($name): string
 	{
 		return self::APP_NAME . ":$name";
+	}
+
+	/**
+	 * @param string $distPath
+	 * @param string $module
+	 * @param string $file
+	 * @return string
+	 */
+	public function distFilePath(string $distPath, string$module,string $file): string
+	{
+		return  sprintf('%s/%s/%s',
+			$distPath,
+			$module,
+			$file
+		);
 	}
 
 }

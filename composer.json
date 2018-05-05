@@ -19,18 +19,23 @@
     "autoload": {
         "psr-4": {
             "calderawp\\gutenbergModules\\": "src"
-        }
+        },
+        "files":[
+            "src/functions.php"
+        ]
     },
     "scripts" : {
         "tests" : "composer fixes && composer sniffs && composer test",
-        "test": "phpunit --testsuite=unit",
+        "test": "phpunit --testsuite=builder",
         "phpunit-v": "phpunit --version",
-        "sniffs" : "phpcs src/ && phpcs tests/",
-        "fixes" : "phpcbf src/ && phpcbf tests/"
+        "sniffs" : "phpcs sniffs",
+        "fixes" : "phpcbf src/ && phpcbf tests/",
+        "hi": "php ./app.php gbm:hi",
+        "build": "php ./app.php gbm:build"
     },
     "autoload-dev": {
         "psr-4": {
-            "calderawp\\interopGhostTests\\Tests\\": "tests/"
+            "calderawp\\gutenbergModules\\Tests\\": "tests/"
         }
     }
 }

@@ -1,0 +1,16 @@
+<phpunit
+	bootstrap="vendor/autoload.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	>
+	<testsuites>
+		<testsuite name="builder" suffix=".php">
+			<directory>./tests</directory>
+		</testsuite>
+
+	</testsuites>
+	<log type="coverage-clover" target="clover.xml"/>
+</phpunit>
