@@ -6,14 +6,15 @@ Gutenberg's built CSS and JavaScript as an npm package.
 * I wanted to develop Caldera Forms UI, using Gutenberg's control components and data component, in an environment that did not include WordPress.
 * I want to play with Symfony Process/ Console components.
 
-## Usage
+## Use In Your App
 
-### Use In Your App
-
-#### Install
+### Install
 `npm i --save @caldera-labs/gutenberg-modules`
 
-### To Build
+### Setup webpack
+You can see my attempt to make this work in `examples/create-react-app`, which doesn't work yet.
+
+## Build
 If you want to use this repo to build your own copy:
 
 NOTE: The version of Gutenberg to pull is hardcoded in app.php for now.
