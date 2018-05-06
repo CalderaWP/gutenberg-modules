@@ -5,7 +5,7 @@ Gutenberg's built CSS and JavaScript as an npm package.
 ## Why?
 * I wanted to develop Caldera Forms UI, using Gutenberg's control components and data component, in an environment that did not include WordPress.
 * I want to play with Symfony Process/ Console components.
-
+* https://github.com/WordPress/gutenberg/issues/3955
 ## Use In Your App
 
 ### Install
