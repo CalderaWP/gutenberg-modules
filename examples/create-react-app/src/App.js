@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {ExampleComponent} from "./ExampleComponent";
+const { Button } = '@wordpress/components';
 
 class App extends Component {
   render() {
@@ -14,10 +14,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-          <ExampleComponent
-                value={'Example Component From Gutenberg' }
-                onChange={console.log('No updates')}
-          />
+          <Button/>
+
       </div>
     );
   }
